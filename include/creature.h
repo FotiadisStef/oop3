@@ -5,6 +5,7 @@ using namespace std;
 class Creature {
     bool is_zombie;
     bool is_good;
+	bool oogabooga;
 
   public:
     string creature_name;
