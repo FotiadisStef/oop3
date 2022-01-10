@@ -1,41 +1,38 @@
 #include <iostream>
-// #include <oogabooga>
 
 #include "../include/creature.h"
 
 using namespace std;
 
-Creature::Creature(string creature_name, int L) {
-    this->creature_name = creature_name;
+Creature::Creature(const string &creature_name, const int &L) {
+    this->name = creature_name;
     this->L = L;
-    cout << "Creature Created" << endl;
+    this->is_zombie = this->L ? false : true;
 }
 
-Creature::~Creature() {
-    cout << "Creature Destroyed" << endl;
+string Creature::get_name() {
+    return this->name;
+}
+
+Creature *Creature::clone() {
+    return new Creature(this->name, this->L);
 }
 
 void Creature::bless() {
-    if (!is_a_zombie()) {
+    if (!this->is_zombie) {
         this->L++;
     }
 }
 
 void Creature::beat() {
-    if (!is_a_zombie()) {
-        if (--this->L == 0) {
-            this->is_zombie = true;
-        }
+    if (this->is_zombie) {
+        return;
     }
-}
-
-Creature *Creature::clone(Creature *clonedCreature) {
+    if (--this->L == 0) {
+        this->is_zombie = true;
+    }
 }
 
 bool Creature::is_a_zombie() {
-    if (L == 0) {
-        return true;
-    }
-
-    return false;
+    return this->is_zombie;
 }

@@ -1,22 +1,22 @@
+#pragma once
+
 #include <string>
 
-using namespace std;
-
 class Creature {
-    bool is_zombie;
-    bool is_good;
-	bool oogabooga;
+    std::string name;
+bool is_zombie;
 
   public:
-    string creature_name;
     int L;
 
-    Creature(string creature_name, int L);
-    ~Creature();
+    Creature(const std::string &creature_name, const int &L);
 
-    void bless();
+    std::string get_name();
+
+    virtual Creature *clone();
+
+    virtual void bless();
     void beat();
-    Creature *clone(Creature *clonedCreature);
 
     bool is_a_zombie();
 };
