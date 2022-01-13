@@ -2,16 +2,29 @@
 
 using namespace std;
 
-Creature::GoodCreature(const std::string &creature_name, const int &L) {
-    // : Creature(const std::string &creature_name, const int &L)
+GoodCreature::GoodCreature(const string &creature_name, const int &L,
+                           const int &threshold)
+    : Creature(creature_name, L, threshold) {
 }
 
 void GoodCreature::bless() {
     Creature::bless();
-    if (this->L >= this->good_thrsh) {
-        Creature *clone();
-    }
 }
 
 Creature *GoodCreature::clone() {
+    return new GoodCreature(name, L, threshold);
+}
+
+void GoodCreature::handle_threshold(Creature **society, const int &N,
+                                    int index) {
+    if (++index == N) {
+        index = 0;
+    }
+    delete society[index];
+
+    society[index] = this->clone();
+}
+
+string GoodCreature::get_type() {
+    return "good";
 }

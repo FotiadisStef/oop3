@@ -9,9 +9,12 @@ class CreatureSociety {
     Creature **society;
 
   public:
-    CreatureSociety(const int &N);
-
     int no_of_good();
-
     int no_of_zombies();
+
+    CreatureSociety(const int &N, const int &L, const int &good_thrsh,
+                    const int &bad_thrsh);
+    ~CreatureSociety();
+
+    void run(const int &M);
 };
