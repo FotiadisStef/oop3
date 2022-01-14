@@ -14,15 +14,14 @@ CreatureSociety ::CreatureSociety(const int &N, const int &L,
         if (rand() % 2 == 0) {
             string name = "Elf" + to_string(i);
             this->society[i] = new GoodCreature(name, L, good_thrsh);
-            num_of_creatures++;
             cout << "placed " << name << " to position " << i << endl;
         } else {
             string name = "Orc" + to_string(i);
             this->society[i] = new BadCreature(name, L, bad_thrsh);
-            num_of_creatures++;
             cout << "placed " << name << " to position " << i << endl;
         }
     }
+	this->num_of_creatures = N;
 }
 
 CreatureSociety::~CreatureSociety() {
@@ -37,12 +36,16 @@ void CreatureSociety::run(const int &M) {
         int index = rand() % this->num_of_creatures;
         if (rand() % 2 == 0) { // bless
             this->society[index]->bless();
+            cout << "Blessed creature: " << society[index]->get_name()
+            << ", new life total: " << society[index]->L << endl;
             if (society[index]->reached_threshold()) { // clone
-                this->society[index]->handle_threshold(this->society,
-                                            this->num_of_creatures, index);
+                this->society[index]->handle_threshold(
+                    this->society, this->num_of_creatures, index);
             }
         } else { // beat
             this->society[index]->beat();
+            cout << "Beat creature: " << society[index]->get_name()
+            << ", new life total: " << society[index]->L << endl;
         }
     }
 
@@ -57,12 +60,12 @@ void CreatureSociety::run(const int &M) {
         }
     }
 
-    if (good_counter == num_of_creatures) {
+    if (zombie_counter == num_of_creatures) {
+        cout << "This is a Dead Society!" << endl;
+    } else if (good_counter == num_of_creatures) {
         cout << "Good Dominates The World!" << endl;
     } else if (bad_counter == num_of_creatures) {
         cout << "Evil Dominates The World!" << endl;
-    } else if (zombie_counter == num_of_creatures) {
-        cout << "This is a Dead Society!" << endl;
     } else {
         cout << "Try again to Improve the World!" << endl;
     }

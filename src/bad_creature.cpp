@@ -1,4 +1,6 @@
 #include "../include/bad_creature.h"
+#include "iostream"
+#include <string>
 
 using namespace std;
 
@@ -17,14 +19,23 @@ Creature *BadCreature::clone() {
 
 void BadCreature::handle_threshold(Creature **society, const int &N,
                                    int index) {
+    if (N == 1) {
+        return;
+    }
+
+	string tmpName = society[index]->get_name();
     if (++index == N) {
         index = 0;
     }
+
     while (society[index]->is_a_zombie()) {
         delete society[index];
         society[index] = this->clone();
+    cout << "Cloned: " << tmpName << " to position: " << index << endl;
 
-        index++;
+        if(++index == N){
+			index = 0;
+		}
     }
 }
 
